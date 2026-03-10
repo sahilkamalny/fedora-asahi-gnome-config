@@ -1,7 +1,7 @@
 <h1 align="center">Fedora Asahi GNOME Config</h1>
 
 <p align="center">
-  <img src="assets/desktop-preview.png" alt="Desktop Preview" width="900"/>
+  <img src="assets/desktop-preview.png" alt="Desktop Preview"/>
 </p>
 
 <p align="center">
@@ -14,6 +14,8 @@
 A reproducible <b>macOS-style GNOME desktop configuration</b> for Fedora Asahi Linux.
 </p>
 
+<hr>
+
 This repository stores the configuration, themes, scripts, and GNOME settings required to recreate my desktop environment.
 
 The goal is to make the desktop:
@@ -22,6 +24,19 @@ The goal is to make the desktop:
 - version controlled
 - portable across installations
 - easy to restore on a fresh system
+
+---
+
+## Contents
+
+- [Features](#features)
+- [One-Command Install](#onecommand-install)
+- [Manual Installation](#manual-installation)
+- [Repository Structure](#repository-structure)
+- [Updating the Configuration](#updating-the-configuration)
+- [Local Backup System](#local-backup-system)
+- [Notes](#notes)
+- [License](#license)
 
 ---
 
@@ -65,6 +80,7 @@ Then log out and back in.
 
 ## Repository Structure
 
+```
 fedora-asahi-gnome-config
 ├── assets
 │   └── desktop-preview.png
@@ -86,8 +102,7 @@ fedora-asahi-gnome-config
 ├── setup.sh
 ├── README.md
 └── .gitignore
-
----
+```
 
 ## Updating the Configuration
 
