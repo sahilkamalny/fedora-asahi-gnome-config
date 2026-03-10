@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -e
+
+FILE="$1"
+
+if [ -z "$FILE" ]; then
+  FILE="$(ls -t "$HOME"/gnome-backup-*.tar.gz 2>/dev/null | head -n 1)"
+fi
+
+if [ -z "$FILE" ] || [ ! -f "$FILE" ]; then
+  echo "Usage: restore-gnome /path/to/backup.tar.gz"
+  echo "Or run restore-gnome with no argument to restore the newest backup."
+  exit 1
+fi
+
+WORKDIR="$HOME/gnome-backup-restore-tmp"
+rm -rf "$WORKDIR"
+mkdir -p "$WORKDIR"
+
+echo "Extracting backup..."
+tar -xzf "$FILE" -C "$WORKDIR"
+
+BACKUP_ROOT="$WORKDIR/gnome-backup"
+
+echo "Restoring GNOME settings..."
+
+# Restore only GNOME-related branches and suppress non-writable-key noise
+if [ -f "$BACKUP_ROOT/dconf/org-gnome.ini" ]; then
+  dconf load /org/gnome/ < "$BACKUP_ROOT/dconf/org-gnome.ini" 2>/dev/null || true
+fi
+
+if [ -f "$BACKUP_ROOT/dconf/org-gtk.ini" ]; then
+  dconf load /org/gtk/ < "$BACKUP_ROOT/dconf/org-gtk.ini" 2>/dev/null || true
+fi
+
+if [ -f "$BACKUP_ROOT/dconf/gnome-shell-extensions.ini" ]; then
+  dconf load /org/gnome/shell/extensions/ < "$BACKUP_ROOT/dconf/gnome-shell-extensions.ini" 2>/dev/null || true
+fi
+
+cp -r "$BACKUP_ROOT/.themes" ~ 2>/dev/null || true
+cp -r "$BACKUP_ROOT/.icons" ~ 2>/dev/null || true
+
+mkdir -p ~/.config
+cp -r "$BACKUP_ROOT/config/"* ~/.config/ 2>/dev/null || true
+
+rm -rf "$WORKDIR"
+
+echo "Restore complete."
+echo "Log out and back in to apply."

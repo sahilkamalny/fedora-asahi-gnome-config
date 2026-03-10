@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -e
+
+BACKUP_DIR="$HOME/gnome-backup"
+STATE_DIR="$HOME/.local/state/gnome-backup"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+
+mkdir -p "$BACKUP_DIR/dconf"
+mkdir -p "$STATE_DIR"
+
+echo "Backing up GNOME configuration..."
+
+dconf dump /org/gnome/ > "$BACKUP_DIR/dconf/org-gnome.ini"
+dconf dump /org/gtk/ > "$BACKUP_DIR/dconf/org-gtk.ini" 2>/dev/null || true
+dconf dump /org/gnome/shell/extensions/ > "$BACKUP_DIR/dconf/gnome-shell-extensions.ini" 2>/dev/null || true
+
+gnome-extensions list > "$BACKUP_DIR/extensions.txt"
+
+cp -r ~/.themes "$BACKUP_DIR/" 2>/dev/null || true
+cp -r ~/.icons "$BACKUP_DIR/" 2>/dev/null || true
+
+mkdir -p "$BACKUP_DIR/config"
+cp -r ~/.config/gtk-3.0 "$BACKUP_DIR/config/" 2>/dev/null || true
+cp -r ~/.config/gtk-4.0 "$BACKUP_DIR/config/" 2>/dev/null || true
+
+HASH_FILE="$STATE_DIR/last-hash.txt"
+
+CURRENT_HASH=$(
+  find "$BACKUP_DIR" -type f -print0 \
+  | sort -z \
+  | xargs -0 sha256sum \
+  | sha256sum \
+  | awk '{print $1}'
+)
+
+LATEST_BACKUP="$(ls -t "$HOME"/gnome-backup-*.tar.gz 2>/dev/null | head -n 1 || true)"
+
+if [ -n "$LATEST_BACKUP" ] && [ -f "$HASH_FILE" ] && [ "$(cat "$HASH_FILE")" = "$CURRENT_HASH" ]; then
+  echo "No changes detected. No new backup created."
+  rm -rf "$BACKUP_DIR"
+  exit 0
+fi
+
+ARCHIVE="$HOME/gnome-backup-$TIMESTAMP.tar.gz"
+tar -czf "$ARCHIVE" -C "$HOME" gnome-backup
+
+echo "$CURRENT_HASH" > "$HASH_FILE"
+
+ls -t "$HOME"/gnome-backup-*.tar.gz 2>/dev/null | tail -n +2 | xargs -r rm
+
+rm -rf "$BACKUP_DIR"
+
+echo "Backup created:"
+echo "$ARCHIVE"
