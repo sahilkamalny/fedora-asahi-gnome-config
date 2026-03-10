@@ -1,0 +1,14 @@
+dash-to-dock@micxgx.gmail.com
+blur-my-shell@aunetx
+user-theme@gnome-shell-extensions.gcampax.github.com
+peek-bar@rachalaraj.github.com
+mediacontrols@cliffniff.github.com
+openbar@neuromorph
+just-perfection-desktop@just-perfection
+burn-my-windows@schneegans.github.com
+search-light@icedman.github.com
+apps-menu@gnome-shell-extensions.gcampax.github.com
+background-logo@fedorahosted.org
+launch-new-instance@gnome-shell-extensions.gcampax.github.com
+places-menu@gnome-shell-extensions.gcampax.github.com
+window-list@gnome-shell-extensions.gcampax.github.com
