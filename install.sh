@@ -16,10 +16,19 @@ fi
 
 cd "$INSTALL_DIR"
 
-echo "Running restore script..."
+echo "Installing GNOME extensions..."
 
-bash restore-from-repo.sh
+while read -r EXT; do
+  if ! gnome-extensions list | grep -q "$EXT"; then
+    echo "Installing extension: $EXT"
+    gnome-extensions install "$EXT" || true
+  fi
+done < gnome-extensions.txt
+
+echo "Applying configuration..."
+
+bash setup.sh
 
 echo ""
 echo "Installation complete."
-echo "Log out and back in for all changes to apply."
+echo "Log out and back in to apply all changes."

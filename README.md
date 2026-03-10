@@ -1,57 +1,60 @@
 # Fedora Asahi GNOME Config
 
+![Desktop Preview](assets/desktop-preview.png)
+
 A reproducible macOS-style GNOME desktop configuration for **Fedora Asahi Linux**.
 
 This repository stores the configuration, themes, scripts, and GNOME settings required to recreate my desktop environment.
 
-The goal is to make the system:
+The goal is to make the desktop:
 
 - reproducible
-- version-controlled
+- version controlled
 - portable across installations
+- easy to restore on a fresh system
 
-![Desktop Preview](assets/desktop-preview.png)
+---
 
-## Features
+# Features
 
-- WhiteSur macOS-style theme
-- Blur My Shell configuration
-- Dash to Dock layout
-- custom GNOME Shell styling
-- GTK configuration
-- automated configuration backup
-- Git-based version tracking
+• WhiteSur macOS-style theme  
+• Blur-My-Shell glass effect  
+• Dash-to-Dock layout  
+• custom GNOME shell styling  
+• GTK configuration  
+• GNOME extension configuration  
+• automatic backup scripts  
+• Git-based configuration tracking  
 
-## One Command Install
+---
 
-You can install the entire configuration with one command:
+# One-Command Install
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/sahilkamalny/fedora-asahi-gnome-config/main/install.sh | bash
-```
+You can install the entire configuration with:
 
-After installation, log out and back in.
+bash <(curl -fsSL https://raw.githubusercontent.com/sahilkamalny/fedora-asahi-gnome-config/main/install.sh)
 
-## Manual Installation
+After installation **log out and back in** for all settings to apply.
+
+---
+
+# Manual Installation
 
 Clone the repository:
 
-```bash
 git clone https://github.com/sahilkamalny/fedora-asahi-gnome-config.git
 cd fedora-asahi-gnome-config
-```
 
-Run the restore script:
+Run the setup script:
 
-```bash
-./restore-from-repo.sh
-```
+./setup.sh
 
 Then log out and back in.
 
-## Repository Structure
+---
 
-```
+# Repository Structure
+
 fedora-asahi-gnome-config
 ├── assets
 │   └── desktop-preview.png
@@ -70,51 +73,56 @@ fedora-asahi-gnome-config
 │   └── WhiteSur-Dark
 ├── gnome-extensions.txt
 ├── install.sh
-├── restore-from-repo.sh
+├── setup.sh
 ├── README.md
 └── .gitignore
-```
 
-## Updating the Configuration
+---
 
-After modifying your desktop configuration, run:
+# Updating the Configuration
 
-```bash
+After modifying your GNOME desktop configuration, run:
+
 sync-gnome-config
-```
 
-This command:
+This will:
 
-1. exports GNOME settings
-2. updates GTK configuration
-3. copies theme modifications
-4. updates the extension list
-5. commits changes
-6. pushes to GitHub
+1. export GNOME settings
+2. update GTK configuration
+3. copy theme modifications
+4. update extension list
+5. commit changes
+6. push updates to GitHub
 
-## Local Backups
+---
 
-Create a rollback snapshot:
+# Local Backup System
 
-```bash
+Create a local snapshot of your configuration:
+
 backup-gnome
-```
 
-Restore from backup:
+Restore from a snapshot:
 
-```bash
 restore-gnome <backup-file>
-```
 
-## Notes
+These backups are useful before experimenting with theme or extension changes.
 
-Some GNOME settings cannot be restored if they are locked by system policies. These do not affect the main visual configuration.
+---
+
+# Notes
+
+Some GNOME settings cannot be restored if they are locked by system policies.
+These do **not affect the visual configuration** of the desktop.
 
 This configuration is designed specifically for:
 
 - Fedora Asahi Linux
 - GNOME desktop environment
 
-## License
+---
 
-Personal configuration repository. Use freely for inspiration or adaptation.
+# License
+
+Personal configuration repository.
+Use freely for inspiration or adaptation.
