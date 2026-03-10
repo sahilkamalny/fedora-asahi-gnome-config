@@ -1,4 +1,4 @@
-# Fedora Asahi GNOME Config
+<h1 align="center">Fedora Asahi GNOME Config</h1>
 
 <p align="center">
   <img src="assets/desktop-preview.png" alt="Desktop Preview" width="900"/>
@@ -10,7 +10,9 @@
   <img src="https://img.shields.io/badge/Platform-Linux-black?logo=linux" />
 </p>
 
-A reproducible **macOS-style GNOME desktop configuration** for Fedora Asahi Linux.
+<p align="center">
+A reproducible <b>macOS-style GNOME desktop configuration</b> for Fedora Asahi Linux.
+</p>
 
 This repository stores the configuration, themes, scripts, and GNOME settings required to recreate my desktop environment.
 
